@@ -1,0 +1,56 @@
+# Python bytecode and caches
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.hypothesis/
+.coverage
+coverage.xml
+htmlcov/
+
+# Build and packaging outputs
+build/
+dist/
+wheels/
+*.egg-info/
+*.egg
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.template
+
+# Local tooling state
+.codegraph
+.omo/
+
+# Logs and runtime files
+*.log
+*.pid
+*.out
+*.err
+
+# Airflow generated state
+airflow/logs/
+airflow/airflow.cfg
+airflow/webserver_config.py
+airflow/simple_auth_manager_passwords.json.generated
+
+# Docker and local data
+data/
+tmp/
+*.sqlite
+*.sqlite3
+
+# OS/editor noise
+.DS_Store
+.idea/
+.vscode/
