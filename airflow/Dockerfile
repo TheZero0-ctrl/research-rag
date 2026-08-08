@@ -1,10 +1,11 @@
-FROM python:3.12-slim
+FROM python:3.14-slim
 
 # Set environment variables
 ENV AIRFLOW_HOME=/opt/airflow
-ENV AIRFLOW_VERSION=2.10.3
-ENV PYTHON_VERSION=3.12
+ENV AIRFLOW_VERSION=3.3.0
+ENV PYTHON_VERSION=3.14
 ENV CONSTRAINT_URL="https://raw.githubusercontent.com/apache/airflow/constraints-${AIRFLOW_VERSION}/constraints-${PYTHON_VERSION}.txt"
+ENV PYTORCH_CPU_INDEX_URL="https://download.pytorch.org/whl/cpu"
 
 # Install system dependencies
 RUN apt-get update && \
@@ -31,12 +32,15 @@ RUN mkdir -p ${AIRFLOW_HOME} && \
 # Install Airflow with PostgreSQL support
 RUN pip install --no-cache-dir \
     "apache-airflow[postgres]==${AIRFLOW_VERSION}" \
-    --constraint "${CONSTRAINT_URL}" \
-    psycopg2-binary
+    --constraint "${CONSTRAINT_URL}"
 
 # Copy requirements and install project dependencies
 COPY requirements-airflow.txt /tmp/requirements-airflow.txt
-RUN pip install --no-cache-dir -r /tmp/requirements-airflow.txt
+RUN pip install --no-cache-dir \
+    --extra-index-url "${PYTORCH_CPU_INDEX_URL}" \
+    "apache-airflow==${AIRFLOW_VERSION}" \
+    -r /tmp/requirements-airflow.txt && \
+    pip check
 
 # Copy and set up entrypoint script
 COPY entrypoint.sh /entrypoint.sh

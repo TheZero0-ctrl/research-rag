@@ -94,6 +94,11 @@ services:
       # Airflow-specific environment setup
       - AIRFLOW_HOME=/opt/airflow
       - PYTHONPATH=/opt/airflow/src
+      - AIRFLOW__CORE__EXECUTOR=LocalExecutor
+      - AIRFLOW__CORE__AUTH_MANAGER=airflow.api_fastapi.auth.managers.simple.simple_auth_manager.SimpleAuthManager
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=postgresql+psycopg://rag_user:rag_password@postgres:5432/rag_db
+      # Execution API server URL (api-server runs on 8082 via entrypoint.sh)
+      - AIRFLOW__CORE__EXECUTION_API_SERVER_URL=http://localhost:8082/execution/
       # Container hostnames for Airflow
       - DATABASE_URL=postgresql+psycopg://rag_user:rag_password@postgres:5432/rag_db
       - OPENSEARCH_HOST=http://opensearch:9200
@@ -106,10 +111,10 @@ services:
       - ./airflow/plugins:/opt/airflow/plugins
       - ./src:/opt/airflow/src
     ports:
-      - "8082:8082"
+      - "127.0.0.1:8082:8082"
     # Command handled by entrypoint.sh
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8082/health"]
+      test: ["CMD-SHELL", "python -c \"import json, urllib.request; data=json.load(urllib.request.urlopen('http://localhost:8082/api/v2/monitor/health')); raise SystemExit(0 if all(data[k]['status'] == 'healthy' for k in ('metadatabase', 'scheduler', 'dag_processor')) else 1)\""]
       interval: 30s
       timeout: 10s
       retries: 3

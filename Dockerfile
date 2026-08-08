@@ -1,4 +1,4 @@
-FROM ghcr.io/astral-sh/uv:python3.12-bookworm AS base
+FROM ghcr.io/astral-sh/uv:python3.14-bookworm AS base
 
 WORKDIR /app
 
@@ -19,7 +19,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
 # Copy source code
 COPY src /app/src
 
-FROM python:3.12.8-slim AS final
+FROM python:3.14-slim AS final
 
 EXPOSE 8000
 
@@ -32,7 +32,6 @@ WORKDIR /app
 
 # Copy the virtual environment from the base stage
 COPY --from=base /app /app
-COPY --from=base /root/.local/share/uv/python /root/.local/share/uv/python
 
 # Add virtual environment to PATH
 ENV PATH="/app/.venv/bin:$PATH"

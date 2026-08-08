@@ -1,14 +1,15 @@
-# Core dependencies needed for Airflow tasks
+# Dependencies imported by project DAG tasks.
+# Airflow and its provider-managed dependencies are installed in the Dockerfile
+# with the official Airflow constraints file.
 httpx>=0.27.0
-sqlalchemy>=1.4.36,<2.0.0
 pydantic>=2.0.0,<3.0.0
 python-dateutil>=2.8.0
 
-# PDF processing dependencies  
-docling>=2.0.0
+# PDF processing dependencies
+docling==2.117.0
 
 # Search engine dependencies
 opensearch-py>=2.4.0
 
-# Database drivers
-psycopg2-binary>=2.9.0
+# Database driver used by project code
+psycopg[binary]>=3.2.0

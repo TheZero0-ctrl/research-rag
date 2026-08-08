@@ -1,0 +1,16 @@
+.env
+.env.*
+!.env.example
+!.env.template
+.venv/
+venv/
+env/
+airflow/.venv/
+airflow/logs/
+airflow/airflow.cfg
+airflow/simple_auth_manager_passwords.json.generated
+__pycache__/
+*.py[cod]
+.git/
+.codegraph/
+.omo/
