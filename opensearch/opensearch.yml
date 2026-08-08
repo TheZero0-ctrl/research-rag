@@ -1,0 +1,13 @@
+---
+cluster.name: "docker-cluster"
+
+network.host: 0.0.0.0
+
+# Single-node dev cluster (mirrors compose env `discovery.type=single-node`)
+discovery.type: single-node
+
+# Workaround for upstream OpenSearch issue #17413:
+# Netty's ZstdEncoder requires direct buffers, but OpenSearch's default
+# NoDirectBuffers allocator forbids them -> zstd-negotiated responses crash.
+# Disabling HTTP compression prevents the broken codec from ever initializing.
+http.compression: false

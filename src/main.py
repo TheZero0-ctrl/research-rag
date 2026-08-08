@@ -3,8 +3,8 @@ import uvicorn
 from contextlib import asynccontextmanager
 from fastapi import FastAPI
 
-from database import engine
-from routers import ping
+from src.database import engine
+from src.routers import ping
 
 
 @asynccontextmanager
