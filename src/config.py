@@ -37,10 +37,25 @@ class ArxivSettings(BaseConfigSettings):
         "arxiv": "http://arxiv.org/schemas/atom",
     }
 
+class PDFParserSettings(BaseConfigSettings):
+    model_config = SettingsConfigDict(
+        env_file=[".env"],
+        env_prefix="PDF_PARSER__",
+        extra="ignore",
+        frozen=True,
+        case_sensitive=False,
+    )
+
+    max_pages: int = 30
+    max_file_size_mb: int = 20
+    do_ocr: bool = False
+    do_table_structure: bool = True
+
 
 class Settings(BaseConfigSettings):
     database_url: str = "postgresql+psycopg://rag_user:rag_password@localhost:5432/rag_db"
 
     arxiv: ArxivSettings = Field(default_factory=ArxivSettings)
+    pdf_parser: PDFParserSettings = Field(default_factory=PDFParserSettings)
 
 settings = Settings() # type: ignore[call-arg] # Loaded from .env file

@@ -35,3 +35,23 @@ class PDFDownloadTimeoutError(PDFDownloadException):
 
 class PDFCacheException(Exception):
     """Exception raised for PDF cache-related errors."""
+
+class PDFParsingException(ParsingException):
+    """Base exception for PDF parsing-related errors."""
+
+
+class PDFValidationError(PDFParsingException):
+    """Exception raised when PDF file validation fails."""
+
+
+class PDFDownloadException(Exception):
+    """Base exception for PDF download-related errors."""
+
+
+class PDFDownloadTimeoutError(PDFDownloadException):
+    """Exception raised when PDF download times out."""
+
+
+class PDFCacheException(Exception):
+    """Exception raised for PDF cache-related errors."""
+
