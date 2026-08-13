@@ -55,3 +55,10 @@ class PDFDownloadTimeoutError(PDFDownloadException):
 class PDFCacheException(Exception):
     """Exception raised for PDF cache-related errors."""
 
+
+class MetadataFetchingException(Exception):
+    """Base exception for metadata fetching pipeline errors."""
+
+
+class PipelineException(MetadataFetchingException):
+    """Exception raised during pipeline execution."""
