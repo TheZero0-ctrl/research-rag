@@ -53,7 +53,10 @@ class PDFParserSettings(BaseConfigSettings):
 
 
 class Settings(BaseConfigSettings):
-    database_url: str = "postgresql+psycopg://rag_user:rag_password@localhost:5432/rag_db"
+    postgres_database_url: str = "postgresql+psycopg://rag_user:rag_password@localhost:5432/rag_db"
+    postgres_echo_sql: bool = False
+    postgres_pool_size: int = 20
+    postgres_max_overflow: int = 0
 
     arxiv: ArxivSettings = Field(default_factory=ArxivSettings)
     pdf_parser: PDFParserSettings = Field(default_factory=PDFParserSettings)
