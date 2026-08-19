@@ -26,6 +26,7 @@ services:
       - OPENSEARCH__HOST=http://opensearch:9200
       - OLLAMA_HOST=http://ollama:11434
       - DATABASE_URL=postgresql+psycopg://rag_user:rag_password@postgres:5432/rag_db
+      - POSTGRES_DATABASE_URL=postgresql+psycopg://rag_user:rag_password@postgres:5432/rag_db
       - LANGFUSE_HOST=http://langfuse-web:3000 
       - LANGFUSE_DEBUG=true
       - REDIS__HOST=redis
@@ -102,6 +103,7 @@ services:
       - AIRFLOW__CORE__EXECUTION_API_SERVER_URL=http://localhost:8082/execution/
       # Container hostnames for Airflow
       - DATABASE_URL=postgresql+psycopg://rag_user:rag_password@postgres:5432/rag_db
+      - POSTGRES_DATABASE_URL=postgresql+psycopg://rag_user:rag_password@postgres:5432/rag_db
       - OPENSEARCH_HOST=http://opensearch:9200
       - OPENSEARCH__HOST=http://opensearch:9200
       - OLLAMA_HOST=http://ollama:11434
